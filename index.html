@@ -406,6 +406,18 @@
                   <div class="carousel-item">
                     <img src="images/testimonial-img3.png" class="img-fluid" alt="Image 3" />
                   </div>
+                  <div class="carousel-item">
+                    <img src="images/Python fundamentals-1.png" class="img-fluid" alt="Image 4" />
+                  </div>
+                  <div class="carousel-item">
+                    <img src="images/Linux_fundamental-1.png" class="img-fluid" alt="Image 3" />
+                  </div>
+                  <div class="carousel-item">
+                    <img src="images/Intro_to_cyber-1.png" class="img-fluid" alt="Image 3" />
+                  </div>
+                  <div class="carousel-item">
+                    <img src="images/cfss.png" class="img-fluid" alt="Image 3" />
+                  </div>
                   <!-- Add more images as needed -->
                 </div>
               </div>
@@ -665,21 +677,70 @@
               </div>
               <div class="contact-form ms-3 mt-3 pb-4 px-2">
                 <div class="mb-3">
-                  <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Name" />
+                  <input type="text" class="form-control" id="name" placeholder="Name" />
                 </div>
                 <div class="mb-3">
-                  <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="E-mail" />
+                  <input type="email" class="form-control" id="email" placeholder="E-mail" />
                 </div>
                 <div class="mb-3">
-                  <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Mobile No." />
+                  <input type="text" class="form-control" id="mobile" placeholder="Mobile No." />
                 </div>
                 <div class="mb-3">
-                  <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Message" rows="5"></textarea>
+                  <textarea class="form-control" id="message" placeholder="Message" rows="5"></textarea>
                 </div>
-                <button class="c-btn h-btn mt-3 py-2 px-4 rounded-pill">
-                  Submit
-                </button>
+                <button class="c-btn h-btn mt-3 py-2 px-4 rounded-pill" onclick="submitForm(event)">Submit</button>
               </div>
+              
+              <script>
+                function submitForm(event) {
+                  event.preventDefault(); // Prevent the page from refreshing
+              
+                  // Get form values
+                  const name = document.getElementById('name').value;
+                  const email = document.getElementById('email').value;
+                  const mobile = document.getElementById('mobile').value;
+                  const message = document.getElementById('message').value;
+              
+                  // Basic validation: Check if fields are not empty
+                  if (!name || !email || !mobile || !message) {
+                    alert('Please fill in all the fields.');
+                    return;
+                  }
+              
+                  // Submit form data
+                  fetch('https://script.google.com/macros/s/AKfycbz2mC7zs5Emn-AoWQ1dGBzjifpcCpaCgQGiAAf53wG_D24MGL5RwlmfXnaM0e2K5HK0MQ/exec', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                      name: name,
+                      email: email,
+                      mobile: mobile,
+                      message: message
+                    }),
+                  })
+                  .then(response => response.json())
+                  .then(data => {
+                    if (data.result === 'success') {
+                      alert('Form submitted successfully!');
+                      // Clear form fields after submission
+                      document.getElementById('name').value = '';
+                      document.getElementById('email').value = '';
+                      document.getElementById('mobile').value = '';
+                      document.getElementById('message').value = '';
+                    } else {
+                      alert('There was an error. Please try again.');
+                    }
+                  })
+                  .catch(error => {
+                    console.error('Error:', error);
+                    alert('There was a problem submitting the form. Please try again later.');
+                  });
+                }
+              </script>
+              
+              
             </div>
           </div>
         </div>
